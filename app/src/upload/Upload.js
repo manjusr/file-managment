@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Dropzone from "../dropzone/Dropzone";
 import "./Upload.css";
 import Progress from "../progress/Progress";
@@ -71,9 +72,14 @@ class Upload extends Component {
       });
 
       const formData = new FormData();
-      formData.append("file", file, file.name);
+      formData.append("files", file, file.name);
+      formData.append("submit", 'submit');
+      formData.append("cat", 1);
+      req.open("post","http://localhost:90/file_backend/upload.php");
 
-      req.open("POST", "http://localhost:8000/upload");
+     // axios.post("http://localhost:90/file_backend/upload.php", formData, {
+     //   headers: {'Access-Control-Allow-Origin': '*'}
+     // });
       req.send(formData);
     });
   }
